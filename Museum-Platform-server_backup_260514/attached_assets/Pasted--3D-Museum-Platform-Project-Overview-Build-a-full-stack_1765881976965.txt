@@ -1,0 +1,917 @@
+# 3D Museum Platform
+
+## Project Overview
+Build a full-stack web-based 3D museum platform that allows users to browse artifacts, view interactive 3D models, and access curated information. Include an admin CMS for content management. The application should feature a dark, elegant, minimal design inspired by https://tszshanmuseum.org/en/.
+
+---
+
+## Design Requirements
+
+### Visual Style & Theme
+- **Dark theme** with sophisticated, museum-quality aesthetics
+- Elegant serif fonts for headings, clean sans-serif for body text
+- Minimalist layout with ample whitespace
+- Subtle animations and transitions
+- High contrast for accessibility
+- Color palette: Deep blacks/dark grays as base, with gold/bronze accents for highlights
+- Clean navigation with clear visual hierarchy
+
+### Responsive Design
+- Fully responsive across desktop, tablet, and mobile
+- Mobile-first approach
+- Touch-friendly controls for 3D viewer on mobile devices
+- Optimized image loading for different screen sizes
+
+---
+
+## Technology Stack
+
+### Frontend
+- **Framework**: React with React Router for navigation
+- **Styling**: TailwindCSS for responsive design
+- **3D Viewer**: Three.js or Google Model Viewer for 3D model rendering
+- **State Management**: React Context API or Zustand
+
+### Backend
+- **Runtime**: Node.js with Express.js
+- **Authentication**: JWT-based authentication with bcrypt for password hashing
+- **API Architecture**: RESTful API design
+- **Input Validation**: Express-validator for sanitization
+- **Rate Limiting**: Express-rate-limit for brute force protection
+
+### Database
+- **Primary Database**: PostgreSQL
+- **ORM**: Sequelize for database operations
+- **Schema Design**: Normalized structure with proper foreign keys
+
+### File Storage
+- **3D Models & Images**: AWS S3, Cloudflare R2, or DigitalOcean Spaces
+- **CDN**: CloudFront or equivalent for fast global delivery
+- **Image Optimization**: Sharp library for automatic image resizing
+
+---
+
+## Feature Requirements
+
+## 1. PUBLIC WEBSITE (Frontend)
+
+### 1.1 Homepage
+**Components:**
+- Hero section with museum introduction and stunning hero image
+- Featured artifacts carousel/grid (3-6 items)
+- Highlighted categories with representative images
+- "Newly Added" section showing recent artifacts
+- Call-to-action buttons (Explore Collection, Virtual Tour)
+- Footer with links and copyright info
+
+**Technical Requirements:**
+- Lazy loading for images
+- Smooth scroll animations
+- SEO-optimized meta tags
+
+### 1.2 Collection/Gallery Page
+**Features:**
+- Dynamic grid layout (adjusts columns based on screen size)
+- Each artifact card displays:
+  - Thumbnail image
+  - Title
+  - Short description (truncated)
+  - Category badge
+  - 3D icon indicator (if 3D model available)
+  
+**Search & Filter System:**
+- Search bar with real-time suggestions
+- Filter sidebar with:
+  - Category (multi-select checkboxes)
+  - Material (dropdown or multi-select)
+  - Region (dropdown or multi-select)
+  - Historical Period (range slider or dropdown)
+- "Clear all filters" button
+- Active filter chips showing applied filters
+
+**Sorting Options:**
+- Newest first
+- Oldest first
+- Alphabetical (A-Z)
+- Alphabetical (Z-A)
+
+**Pagination:**
+- Option 1: Traditional pagination (Page 1, 2, 3...)
+- Option 2: Infinite scroll with "Load More" button
+- Display result count (e.g., "Showing 24 of 156 artifacts")
+
+**Technical Requirements:**
+- Debounced search queries
+- URL parameters for shareable filtered states
+- Loading skeletons during data fetch
+- Empty state message when no results found
+
+### 1.3 Artifact Detail Page
+**Layout Sections:**
+
+**Top Section:**
+- Artifact title (large, prominent)
+- Category and tags
+- Creation date/period
+- Region of origin
+- Material information
+
+**Image Gallery:**
+- Primary large image display
+- Thumbnail strip below (4-6 images)
+- Lightbox modal with zoom functionality
+- Next/Previous navigation in lightbox
+- Pinch-to-zoom on mobile
+
+**3D Model Viewer:**
+- Embedded 3D viewer (prominent section)
+- Controls:
+  - Drag to rotate (360°)
+  - Scroll/pinch to zoom
+  - Pan controls
+  - Reset view button
+  - Auto-rotate toggle
+  - Fullscreen button
+- Loading spinner while model loads
+- Fallback message if 3D model unavailable
+
+**Content Sections:**
+- Short description (1-2 paragraphs)
+- Long description/Historical context (expandable section)
+- Metadata table (organized key-value pairs)
+
+**Related Artifacts:**
+- "You might also like" section
+- 3-4 related artifacts based on category/period
+- Horizontal scroll or grid layout
+
+**Comments Section:**
+- Display all approved comments
+- Timestamp and user name for each comment
+- "Login to comment" prompt for public users
+- Comment form for logged-in users
+- Character limit indicator
+- Submit button
+
+**Technical Requirements:**
+- Social sharing buttons (optional)
+- Print-friendly view
+- Breadcrumb navigation
+- OpenGraph meta tags for social sharing
+
+### 1.4 User Authentication
+
+**Registration Page:**
+- Email field with validation
+- Password field with strength indicator
+- Confirm password field
+- Terms & conditions checkbox
+- Submit button
+- Link to login page
+
+**Login Page:**
+- Email field
+- Password field
+- "Remember me" checkbox (optional)
+- "Forgot password?" link
+- Submit button
+- Link to registration page
+
+**User Profile Page (Logged-in Users):**
+- View/edit profile information
+- Change password functionality
+- View favorites/wishlist
+- View comment history
+- Logout button
+
+**Security Features:**
+- Client-side validation
+- CAPTCHA on registration (optional)
+- Password requirements: min 8 chars, 1 uppercase, 1 number, 1 special char
+- Session timeout after inactivity
+- Secure password reset via email token
+
+---
+
+## 2. ADMIN PANEL (CMS)
+
+### 2.1 Admin Login
+- Separate login route (e.g., /admin/login)
+- Protected route requiring admin role
+- Different styling/theme from public site
+
+### 2.2 Dashboard
+**Overview Cards:**
+- Total Artifacts count
+- Total Users count
+- Pending Comments count (with badge)
+- Total Views (if analytics implemented)
+
+**Quick Stats:**
+- Most viewed artifacts (top 5)
+- Recent user registrations (last 10)
+- Recent comments (last 10)
+- Storage usage (optional)
+
+**Visual Elements:**
+- Charts showing artifacts by category (pie/bar chart)
+- Time-series graph of new artifacts added
+- Clean, organized card layout
+
+### 2.3 Artifact Management
+
+**Artifacts List View:**
+- Table/grid showing all artifacts
+- Columns: Thumbnail, Title, Category, Date Added, Status, Actions
+- Search artifacts by title
+- Filter by category, status (published/draft)
+- Sort by date, title
+- Pagination
+- Bulk actions (delete, change category)
+
+**Create/Edit Artifact Form:**
+- Title (required)
+- Short description (required, max 200 chars)
+- Long description (rich text editor for formatting)
+- Category (dropdown, required)
+- Tags (comma-separated or tag input)
+- Material (text/dropdown)
+- Region (text/dropdown)
+- Historical Period (text/date range)
+- Year/Date created
+- Dimensions (width, height, depth)
+- Current location
+- Acquisition date
+
+**Image Upload:**
+- Multiple image upload (drag & drop + click to upload)
+- Image preview thumbnails
+- Set primary image
+- Reorder images (drag to reorder)
+- Delete individual images
+- Image compression on upload
+
+**3D Model Upload:**
+- GLB/GLTF file upload
+- File size limit warning (e.g., max 50MB)
+- 3D model preview after upload
+- Option to replace existing model
+- Delete 3D model
+
+**Action Buttons:**
+- Save as Draft
+- Publish
+- Preview
+- Delete (with confirmation)
+- Cancel
+
+### 2.4 Comment Moderation
+
+**Comments Management:**
+- Table showing all comments
+- Columns: User, Artifact, Comment Preview, Date, Status, Actions
+- Filter by status (Pending, Approved, Rejected)
+- Search by user name or comment text
+
+**Actions:**
+- Approve comment (changes status to "Approved")
+- Reject comment (changes status to "Rejected")
+- Delete comment permanently
+- View full comment in modal
+- View associated artifact
+- Block user (if flagged repeatedly)
+
+### 2.5 User Management
+
+**Users List:**
+- Table with columns: Username, Email, Role, Registration Date, Status, Actions
+- Search by username or email
+- Filter by role (User, Admin)
+- Filter by status (Active, Blocked)
+
+**Actions:**
+- View user details
+- Edit user role
+- Block/Unblock user
+- Delete user (with warning about associated data)
+- Reset user password (send reset email)
+
+### 2.6 Category Management
+
+**Categories List:**
+- Display all categories
+- Show artifact count per category
+- Reorder categories (drag & drop or up/down buttons)
+
+**Create/Edit Category:**
+- Category name (required)
+- Category description (optional)
+- Upload category thumbnail
+- Parent category (for nested categories, optional)
+- Status (active/inactive)
+
+**Actions:**
+- Create new category
+- Edit existing category
+- Delete category (with warning if artifacts exist)
+- Merge categories
+
+### 2.7 System Settings
+
+**General Settings:**
+- Site title
+- Site description/tagline
+- Contact email
+- Footer text
+- Social media links
+
+**Authentication Settings:**
+- Session timeout duration
+- Password requirements toggle
+- Enable/disable user registration
+- Require email verification
+
+**Content Settings:**
+- Artifacts per page
+- Enable/disable comments globally
+- Auto-approve comments toggle
+- Maximum upload file sizes
+
+**API Configuration:**
+- Storage service credentials (S3, Spaces, etc.)
+- CDN URL
+- API rate limits
+
+---
+
+## 3. BACKEND API SPECIFICATIONS
+
+### Authentication Endpoints
+
+```
+POST /api/auth/register
+- Body: { email, password, confirmPassword, username }
+- Returns: { success, message, user }
+
+POST /api/auth/login
+- Body: { email, password }
+- Returns: { success, token, user }
+
+POST /api/auth/logout
+- Headers: { Authorization: Bearer <token> }
+- Returns: { success, message }
+
+POST /api/auth/forgot-password
+- Body: { email }
+- Returns: { success, message }
+
+POST /api/auth/reset-password
+- Body: { token, newPassword }
+- Returns: { success, message }
+
+GET /api/auth/me
+- Headers: { Authorization: Bearer <token> }
+- Returns: { user }
+```
+
+### Artifacts Endpoints
+
+```
+GET /api/artifacts
+- Query params: ?page=1&limit=20&category=bronze&search=buddha&sortBy=newest
+- Returns: { artifacts: [], total, page, totalPages }
+
+GET /api/artifacts/:id
+- Returns: { artifact }
+
+POST /api/artifacts (Admin only)
+- Headers: { Authorization: Bearer <admin-token> }
+- Body: FormData with artifact details and files
+- Returns: { success, artifact }
+
+PUT /api/artifacts/:id (Admin only)
+- Headers: { Authorization: Bearer <admin-token> }
+- Body: Updated artifact data
+- Returns: { success, artifact }
+
+DELETE /api/artifacts/:id (Admin only)
+- Headers: { Authorization: Bearer <admin-token> }
+- Returns: { success, message }
+
+GET /api/artifacts/:id/related
+- Returns: { artifacts: [] }
+```
+
+### Categories Endpoints
+
+```
+GET /api/categories
+- Returns: { categories: [] }
+
+POST /api/categories (Admin only)
+- Body: { name, description, thumbnail }
+- Returns: { success, category }
+
+PUT /api/categories/:id (Admin only)
+- Body: { name, description, thumbnail }
+- Returns: { success, category }
+
+DELETE /api/categories/:id (Admin only)
+- Returns: { success, message }
+```
+
+### Comments Endpoints
+
+```
+GET /api/comments/:artifactId
+- Returns: { comments: [] }
+
+POST /api/comments/:artifactId (Authenticated users)
+- Headers: { Authorization: Bearer <token> }
+- Body: { content }
+- Returns: { success, comment }
+
+PUT /api/comments/:id/approve (Admin only)
+- Returns: { success, comment }
+
+DELETE /api/comments/:id (Admin only)
+- Returns: { success, message }
+```
+
+### Users Endpoints (Admin only)
+
+```
+GET /api/users
+- Headers: { Authorization: Bearer <admin-token> }
+- Returns: { users: [] }
+
+GET /api/users/:id
+- Returns: { user }
+
+PUT /api/users/:id
+- Body: { role, status }
+- Returns: { success, user }
+
+DELETE /api/users/:id
+- Returns: { success, message }
+```
+
+### Admin Dashboard Endpoints
+
+```
+GET /api/admin/stats
+- Headers: { Authorization: Bearer <admin-token> }
+- Returns: { totalArtifacts, totalUsers, pendingComments, views }
+
+GET /api/admin/analytics
+- Returns: { mostViewed: [], recentActivity: [] }
+```
+
+---
+
+## 4. DATABASE SCHEMA
+
+### Users Table
+```sql
+id: UUID (Primary Key)
+email: VARCHAR(255) UNIQUE NOT NULL
+password: VARCHAR(255) NOT NULL (hashed)
+username: VARCHAR(100)
+role: ENUM('user', 'admin') DEFAULT 'user'
+status: ENUM('active', 'blocked') DEFAULT 'active'
+created_at: TIMESTAMP
+updated_at: TIMESTAMP
+```
+
+### Artifacts Table
+```sql
+id: UUID (Primary Key)
+title: VARCHAR(255) NOT NULL
+short_description: TEXT
+long_description: TEXT
+category_id: UUID (Foreign Key -> Categories)
+material: VARCHAR(100)
+region: VARCHAR(100)
+period: VARCHAR(100)
+year: VARCHAR(50)
+dimensions: JSONB
+location: VARCHAR(255)
+acquisition_date: DATE
+has_3d_model: BOOLEAN DEFAULT FALSE
+model_url: VARCHAR(500)
+status: ENUM('draft', 'published') DEFAULT 'published'
+views: INTEGER DEFAULT 0
+created_by: UUID (Foreign Key -> Users)
+created_at: TIMESTAMP
+updated_at: TIMESTAMP
+```
+
+### Categories Table
+```sql
+id: UUID (Primary Key)
+name: VARCHAR(100) UNIQUE NOT NULL
+description: TEXT
+thumbnail_url: VARCHAR(500)
+parent_id: UUID (Foreign Key -> Categories, nullable)
+order: INTEGER DEFAULT 0
+status: ENUM('active', 'inactive') DEFAULT 'active'
+created_at: TIMESTAMP
+```
+
+### Images Table
+```sql
+id: UUID (Primary Key)
+artifact_id: UUID (Foreign Key -> Artifacts)
+url: VARCHAR(500) NOT NULL
+alt_text: VARCHAR(255)
+is_primary: BOOLEAN DEFAULT FALSE
+order: INTEGER DEFAULT 0
+created_at: TIMESTAMP
+```
+
+### Comments Table
+```sql
+id: UUID (Primary Key)
+artifact_id: UUID (Foreign Key -> Artifacts)
+user_id: UUID (Foreign Key -> Users)
+content: TEXT NOT NULL
+status: ENUM('pending', 'approved', 'rejected') DEFAULT 'pending'
+created_at: TIMESTAMP
+updated_at: TIMESTAMP
+```
+
+### Tags Table
+```sql
+id: UUID (Primary Key)
+name: VARCHAR(50) UNIQUE NOT NULL
+created_at: TIMESTAMP
+```
+
+### Artifact_Tags Table (Junction)
+```sql
+artifact_id: UUID (Foreign Key -> Artifacts)
+tag_id: UUID (Foreign Key -> Tags)
+PRIMARY KEY (artifact_id, tag_id)
+```
+
+### Settings Table (Key-Value Store)
+```sql
+id: UUID (Primary Key)
+key: VARCHAR(100) UNIQUE NOT NULL
+value: TEXT
+updated_at: TIMESTAMP
+```
+
+---
+
+## 5. TECHNICAL IMPLEMENTATION DETAILS
+
+### 3D Viewer Implementation
+
+**Using Three.js:**
+```javascript
+// Basic setup
+- Initialize scene, camera, renderer
+- Add OrbitControls for interaction
+- Load GLB/GLTF models using GLTFLoader
+- Add lighting (ambient + directional)
+- Handle window resize
+- Implement auto-rotate functionality
+- Add reset camera position button
+```
+
+**Or Using Model Viewer:**
+```html
+<!-- Simpler implementation -->
+<model-viewer 
+  src="model.glb"
+  alt="Artifact"
+  auto-rotate
+  camera-controls
+  shadow-intensity="1"
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+>
+</model-viewer>
+```
+
+### File Upload Strategy
+- Frontend: React Dropzone for drag & drop
+- Backend: Multer middleware for handling multipart/form-data
+- Validation: File type checking (GLB, GLTF for 3D; JPG, PNG, WEBP for images)
+- Size limits: Images max 10MB, 3D models max 50MB
+- Storage: Upload to S3/Spaces with unique file names (UUID + original extension)
+- Response: Return CDN URL for immediate use
+
+### Image Optimization Pipeline
+- On upload, create multiple versions:
+  - Thumbnail: 300x300px
+  - Medium: 800x800px
+  - Large: 1920x1920px
+  - Original: Stored but not served directly
+- Use Sharp library for processing
+- Convert to WebP format for web delivery
+- Lazy loading on frontend with blur-up placeholder
+
+### Security Measures
+- Helmet.js for security headers
+- CORS configuration
+- SQL injection prevention via parameterized queries
+- XSS protection via input sanitization
+- CSRF tokens for state-changing operations
+- Rate limiting on all endpoints:
+  - Auth endpoints: 5 requests per 15 minutes
+  - General API: 100 requests per 15 minutes
+- JWT expiration: 24 hours (refresh token: 7 days)
+- Environment variables for sensitive data
+
+### Error Handling
+- Consistent error response format:
+```json
+{
+  "success": false,
+  "error": {
+    "message": "User-friendly error message",
+    "code": "ERROR_CODE",
+    "details": {} // Optional developer info
+  }
+}
+```
+- Global error handler middleware
+- Logging system (Winston or similar)
+- User-friendly error messages on frontend
+- Network error handling with retry mechanism
+
+### Performance Optimization
+- Implement caching:
+  - Redis for frequently accessed data (optional)
+  - HTTP caching headers for static assets
+  - Browser caching strategy
+- Database indexing on frequently queried fields
+- Pagination for all list endpoints
+- Lazy loading for images and 3D models
+- Code splitting in React
+- Compression middleware (gzip/brotli)
+- CDN for all static assets
+
+---
+
+## 6. FOLDER STRUCTURE
+
+```
+project-root/
+├── client/                      # React frontend
+│   ├── public/
+│   │   ├── index.html
+│   │   └── assets/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── common/
+│   │   │   │   ├── Header.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   ├── Loading.jsx
+│   │   │   │   └── ErrorBoundary.jsx
+│   │   │   ├── artifacts/
+│   │   │   │   ├── ArtifactCard.jsx
+│   │   │   │   ├── ArtifactGrid.jsx
+│   │   │   │   ├── ArtifactDetail.jsx
+│   │   │   │   ├── FilterSidebar.jsx
+│   │   │   │   └── SearchBar.jsx
+│   │   │   ├── viewer/
+│   │   │   │   ├── ModelViewer.jsx
+│   │   │   │   └── ImageGallery.jsx
+│   │   │   ├── auth/
+│   │   │   │   ├── Login.jsx
+│   │   │   │   ├── Register.jsx
+│   │   │   │   └── ProtectedRoute.jsx
+│   │   │   ├── comments/
+│   │   │   │   ├── CommentList.jsx
+│   │   │   │   └── CommentForm.jsx
+│   │   │   └── admin/
+│   │   │       ├── Dashboard.jsx
+│   │   │       ├── ArtifactManager.jsx
+│   │   │       ├── UserManager.jsx
+│   │   │       ├── CategoryManager.jsx
+│   │   │       └── CommentModeration.jsx
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Collection.jsx
+│   │   │   ├── ArtifactPage.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   └── NotFound.jsx
+│   │   ├── context/
+│   │   │   ├── AuthContext.jsx
+│   │   │   └── ThemeContext.jsx
+│   │   ├── services/
+│   │   │   ├── api.js
+│   │   │   ├── auth.js
+│   │   │   └── artifacts.js
+│   │   ├── utils/
+│   │   │   ├── formatDate.js
+│   │   │   └── validators.js
+│   │   ├── styles/
+│   │   │   └── globals.css
+│   │   ├── App.jsx
+│   │   └── index.js
+│   ├── package.json
+│   └── tailwind.config.js
+│
+├── server/                      # Node.js backend
+│   ├── src/
+│   │   ├── config/
+│   │   │   ├── database.js
+│   │   │   ├── storage.js
+│   │   │   └── jwt.js
+│   │   ├── middleware/
+│   │   │   ├── auth.js
+│   │   │   ├── admin.js
+│   │   │   ├── errorHandler.js
+│   │   │   ├── validator.js
+│   │   │   └── rateLimiter.js
+│   │   ├── models/
+│   │   │   ├── User.js
+│   │   │   ├── Artifact.js
+│   │   │   ├── Category.js
+│   │   │   ├── Comment.js
+│   │   │   ├── Image.js
+│   │   │   └── Tag.js
+│   │   ├── routes/
+│   │   │   ├── auth.js
+│   │   │   ├── artifacts.js
+│   │   │   ├── categories.js
+│   │   │   ├── comments.js
+│   │   │   ├── users.js
+│   │   │   └── admin.js
+│   │   ├── controllers/
+│   │   │   ├── authController.js
+│   │   │   ├── artifactController.js
+│   │   │   ├── categoryController.js
+│   │   │   ├── commentController.js
+│   │   │   └── userController.js
+│   │   ├── services/
+│   │   │   ├── uploadService.js
+│   │   │   ├── emailService.js
+│   │   │   └── imageProcessor.js
+│   │   ├── utils/
+│   │   │   ├── logger.js
+│   │   │   └── helpers.js
+│   │   └── app.js
+│   ├── package.json
+│   └── .env.example
+│
+├── database/
+│   ├── migrations/
+│   └── seeds/
+│
+├── .gitignore
+├── README.md
+└── docker-compose.yml (optional)
+```
+
+---
+
+## 7. GETTING STARTED INSTRUCTIONS
+
+### Environment Variables Setup
+Create `.env` file in server directory:
+```
+NODE_ENV=development
+PORT=5000
+DATABASE_URL=postgresql://user:password@localhost:5432/museum_db
+JWT_SECRET=your_jwt_secret_key_here
+JWT_EXPIRES_IN=24h
+
+# Storage (AWS S3 or DigitalOcean Spaces)
+STORAGE_ENDPOINT=https://nyc3.digitaloceanspaces.com
+STORAGE_BUCKET=museum-artifacts
+STORAGE_ACCESS_KEY=your_access_key
+STORAGE_SECRET_KEY=your_secret_key
+CDN_URL=https://cdn.yourmuseum.com
+
+# Email (for password reset)
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+
+# Admin Credentials (initial)
+ADMIN_EMAIL=admin@museum.com
+ADMIN_PASSWORD=SecurePassword123!
+```
+
+### Installation Steps
+```bash
+# Install dependencies
+cd server && npm install
+cd ../client && npm install
+
+# Setup database
+cd ../server
+npx sequelize-cli db:create
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+
+# Start development servers
+# Terminal 1 - Backend
+cd server && npm run dev
+
+# Terminal 2 - Frontend
+cd client && npm start
+```
+
+---
+
+## 8. TESTING REQUIREMENTS
+
+### Frontend Testing
+- Test responsive design on multiple screen sizes
+- Test 3D viewer on different devices
+- Test image gallery lightbox
+- Test form validations
+- Test routing and navigation
+
+### Backend Testing
+- Test all API endpoints with Postman/Thunder Client
+- Test authentication flow (register, login, logout)
+- Test file uploads (images and 3D models)
+- Test admin permissions
+- Test input validation and sanitization
+- Test error handling
+
+### User Acceptance Testing Scenarios
+1. Public user browses artifacts and views 3D model
+2. User registers, logs in, and posts a comment
+3. Admin logs in and creates a new artifact with images and 3D model
+4. Admin moderates comments
+5. Admin edits user roles
+6. Test search and filter functionality
+7. Test pagination/infinite scroll
+
+---
+
+## 9. DEPLOYMENT CONSIDERATIONS
+
+### Production Checklist
+- [ ] Set all environment variables in production
+- [ ] Enable HTTPS
+- [ ] Configure CDN for static assets
+- [ ] Set up database backups
+- [ ] Configure error monitoring (Sentry)
+- [ ] Set up logging system
+- [ ] Optimize images and 3D models
+- [ ] Enable gzip/brotli compression
+- [ ] Set appropriate CORS policies
+- [ ] Configure rate limiting
+- [ ] Set up health check endpoint
+- [ ] Create admin user
+- [ ] Test email functionality
+- [ ] Load test the application
+
+---
+
+## 10. DELIVERABLES
+
+1. **Functional full-stack application** with all features implemented
+2. **Responsive UI** that works on desktop, tablet, and mobile
+3. **Working 3D viewer** that renders GLB/GLTF models smoothly
+4. **Admin panel** with complete CRUD operations for all entities
+5. **Authentication system** with secure login/registration
+6. **Database** properly set up with all tables and relationships
+7. **API documentation** (can be in README)
+8. **Environment variables template** (.env.example)
+9. **Basic documentation** for setup and deployment
+10. **Sample data** seeded in database for testing
+
+## DESIGN INSPIRATION NOTES
+
+Based on https://tszshanmuseum.org/en/, implement:
+- **Dark elegant theme** with deep blacks and subtle grays
+- **Serif typography** for elegance and sophistication
+- **Generous whitespace** around content
+- **Subtle hover effects** on interactive elements
+- **Smooth transitions** between pages
+- **High-quality imagery** as focal points
+- **Clean navigation** with clear hierarchy
+- **Cultural sensitivity** in design choices
+- **Minimal but elegant iconography**
+- **Focus on content** rather than busy UI elements
+
+---
+
+## NOTES
+- Use modern React best practices (functional components, hooks)
+- Implement proper error boundaries
+- Use async/await for all asynchronous operations
+- Implement loading states for all data fetching
+- Add proper TypeScript types (if using TypeScript)
+- Comment complex logic
+- Follow RESTful API naming conventions
+- Use semantic HTML
+- Ensure accessibility (ARIA labels, keyboard navigation)
+- Optimize for performance from the start
+- Make the 3D viewer mobile-friendly
+- Test file uploads thoroughly
+- Implement proper validation on both frontend and backend
+- Use environment variables for all sensitive data
+- Create reusable components
+- Keep the codebase clean and maintainable

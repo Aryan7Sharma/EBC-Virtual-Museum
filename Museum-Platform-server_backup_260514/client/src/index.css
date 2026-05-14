@@ -1,0 +1,481 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* LIGHT MODE - Museum theme */
+/* LIGHT MODE – Brand theme */
+:root {
+  --button-outline: rgba(0,0,0,.08);
+  --badge-outline: rgba(0,0,0,.04);
+  --opaque-button-border-intensity: -8;
+
+  /* Elevation */
+  --elevate-1: rgba(0,0,0,.03);
+  --elevate-2: rgba(0,0,0,.06);
+
+  /* Backgrounds */
+  --background: 0 0% 98%;
+  --card: 0 0% 100%;
+  --popover: 0 0% 100%;
+  --sidebar: 0 0% 97%;
+
+  /* Foregrounds (text) */
+  --foreground: 240 1% 21%;          /* #353536 main heading */
+  --card-foreground: 240 1% 21%;
+  --popover-foreground: 240 1% 21%;
+  --sidebar-foreground: 240 1% 21%;
+
+  /* Borders / inputs */
+  --border: 0 0% 88%;
+  --card-border: 0 0% 90%;
+  --popover-border: 0 0% 88%;
+  --sidebar-border: 0 0% 86%;
+  --input: 0 0% 82%;
+
+  /* Primary (brand blue) */
+  --primary: 206 76% 42%;             /* #1a75bb */
+  --primary-foreground: 0 0% 100%;
+  --ring: 206 76% 55%;
+
+  /* Secondary (brand red) */
+  --secondary: 4 85% 57%;             /* #ee4035 */
+  --secondary-foreground: 0 0% 100%;
+
+  /* Muted */
+  --muted: 0 0% 95%;
+  --muted-foreground: 0 0% 38%;       /* #616161 */
+
+  /* Accent */
+  --accent: 206 50% 92%;
+  --accent-foreground: 240 1% 21%;
+
+  /* Destructive */
+  --destructive: 4 85% 57%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Charts */
+  --chart-1: 206 76% 42%;
+  --chart-2: 4 85% 57%;
+  --chart-3: 240 1% 35%;
+  --chart-4: 0 0% 55%;
+  --chart-5: 0 0% 70%;
+
+  /* Typography */
+  --font-sans: 'Poppins', system-ui, sans-serif;
+  --font-serif: 'Poppins', system-ui, sans-serif;
+  --font-mono: 'Poppins', system-ui, sans-serif;
+
+  /* Radius & spacing */
+  --radius: .5rem;
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+  /* Shadows */
+  --shadow-2xs: 0 2px 0 hsl(0 0% 0% / .02);
+  --shadow-xs: 0 2px 0 hsl(0 0% 0% / .03);
+  --shadow-sm: 0 2px 0 hsl(0 0% 0% / .04), 0 1px 2px -1px hsl(0 0% 0% / .05);
+  --shadow: 0 2px 0 hsl(0 0% 0% / .05), 0 1px 3px -1px hsl(0 0% 0% / .06);
+  --shadow-md: 0 3px 6px -2px hsl(0 0% 0% / .08);
+  --shadow-lg: 0 6px 12px -3px hsl(0 0% 0% / .10);
+  --shadow-xl: 0 12px 20px -4px hsl(0 0% 0% / .12);
+  --shadow-2xl: 0 16px 28px -6px hsl(0 0% 0% / .14);
+
+  /* ============================================
+     NEW HOME PAGE CUSTOM COLORS - LIGHT MODE
+     ============================================ */
+  
+  /* Hero Section */
+  --hero-gradient-from: rgba(232, 245, 255, 1);
+  --hero-gradient-to: rgba(255, 255, 255, 1);
+  
+  /* Text Colors */
+  --text-accent-red: #EE4035;           /* Red accent text */
+  --text-heading-dark: #353535;         /* Main headings */
+  --text-primary-blue: #1A75BB;         /* Primary blue text */
+  --text-body: #353535;                 /* Body text */
+  --text-muted-gray: #616161;           /* Muted text */
+  
+  /* Background Colors */
+  --bg-white: #fff;                     /* White background */
+  --bg-light-gray: #F7F7F7;             /* Light gray sections */
+  --bg-vision-light: rgb(246 251 255 / 25%);  /* Vision section bg */
+  
+  /* Button & Interactive */
+  --btn-primary-bg: #1A75BB;            /* Primary button */
+  --btn-primary-hover: #EE4035;         /* Hover state */
+  --btn-secondary-bg: #E7F5FF33;        /* Secondary button */
+  --btn-secondary-hover: #E7F5FF66;     /* Secondary hover */
+
+  /* ============================================
+     HEADER & FOOTER COLORS - LIGHT MODE
+     ============================================ */
+  
+  /* Header */
+  --header-bg: rgba(255, 255, 255, 0.1);       /* Header background */
+  --header-border: rgba(0, 0, 0, 0.1);         /* Header border */
+  --header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  
+  /* Footer */
+  --footer-gradient-from: rgba(99, 177, 236, 0.2);   /* Footer gradient start */
+  --footer-gradient-to: transparent;                  /* Footer gradient end */
+  --footer-bg: rgba(255, 255, 255, 0.05);            /* Footer background */
+  --footer-border: rgba(0, 0, 0, 0.05);              /* Footer border */
+}
+
+
+/* DARK MODE – Brand dark */
+.dark {
+  --button-outline: rgba(255,255,255,.10);
+  --badge-outline: rgba(255,255,255,.06);
+  --opaque-button-border-intensity: 8;
+
+  /* Elevation */
+  --elevate-1: rgba(255,255,255,.04);
+  --elevate-2: rgba(255,255,255,.08);
+
+  /* Backgrounds */
+  --background: 220 15% 8%;
+  --card: 220 14% 10%;
+  --popover: 220 14% 11%;
+  --sidebar: 220 14% 9%;
+
+  /* Foregrounds */
+  --foreground: 0 0% 95%;
+  --card-foreground: 0 0% 95%;
+  --popover-foreground: 0 0% 95%;
+  --sidebar-foreground: 0 0% 92%;
+
+  /* Borders / inputs */
+  --border: 220 10% 20%;
+  --card-border: 220 10% 18%;
+  --popover-border: 220 10% 20%;
+  --sidebar-border: 220 10% 18%;
+  --input: 220 10% 25%;
+
+  /* Primary (brand blue brighter for dark UI) */
+  --primary: 206 76% 52%;
+  --primary-foreground: 0 0% 100%;
+  --ring: 206 76% 60%;
+
+  /* Secondary (brand red tuned for dark) */
+  --secondary: 4 85% 60%;
+  --secondary-foreground: 0 0% 100%;
+
+  /* Muted */
+  --muted: 220 10% 14%;
+  --muted-foreground: 0 0% 90%;
+
+  /* Accent */
+  --accent: 206 35% 20%;
+  --accent-foreground: 0 0% 95%;
+
+  /* Destructive */
+  --destructive: 4 85% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Charts */
+  --chart-1: 206 76% 60%;
+  --chart-2: 4 85% 60%;
+  --chart-3: 0 0% 70%;
+  --chart-4: 0 0% 50%;
+  --chart-5: 0 0% 30%;
+
+  /* Shadows */
+  --shadow-2xs: 0 2px 0 hsl(0 0% 0% / .10);
+  --shadow-xs: 0 2px 0 hsl(0 0% 0% / .14);
+  --shadow-sm: 0 2px 0 hsl(0 0% 0% / .18), 0 1px 2px -1px hsl(0 0% 0% / .22);
+  --shadow: 0 2px 0 hsl(0 0% 0% / .20), 0 1px 3px -1px hsl(0 0% 0% / .25);
+  --shadow-md: 0 3px 6px -2px hsl(0 0% 0% / .28);
+  --shadow-lg: 0 6px 12px -3px hsl(0 0% 0% / .32);
+  --shadow-xl: 0 12px 20px -4px hsl(0 0% 0% / .36);
+  --shadow-2xl: 0 16px 28px -6px hsl(0 0% 0% / .40);
+
+  /* ============================================
+     NEW HOME PAGE CUSTOM COLORS - DARK MODE
+     ============================================ */
+  
+  /* Hero Section */
+  --hero-gradient-from: hsl(220 15% 8%);     /* Dark background start */
+  --hero-gradient-to: hsl(220 15% 12%);      /* Slightly lighter dark */
+  
+  /* Text Colors - Keep primary/secondary same, adjust others */
+  --text-accent-red: #EE4035;                /* Keep same */
+  --text-heading-dark: hsl(0 0% 95%);        /* Light text for dark bg */
+  --text-primary-blue: #1A75BB;              /* Keep same */
+  --text-body: hsl(0 0% 90%);                /* Light body text */
+  --text-muted-gray: hsl(0, 0%, 80%);          /* Lighter muted for dark */
+  
+  /* Background Colors */
+  --bg-white: hsl(220 14% 10%);              /* Dark card background */
+  --bg-light-gray: hsl(220 14% 12%);         /* Slightly lighter dark */
+  --bg-vision-light: hsl(220 14% 14%);       /* Vision section dark */
+  
+  /* Button & Interactive */
+  --btn-primary-bg: #1A75BB;                 /* Keep same */
+  --btn-primary-hover: #EE4035;              /* Keep same */
+  --btn-secondary-bg: rgba(26, 117, 187, 0.15);  /* Darker transparent blue */
+  --btn-secondary-hover: rgba(26, 117, 187, 0.25); /* Hover darker */
+
+  /* ============================================
+     HEADER & FOOTER COLORS - DARK MODE
+     ============================================ */
+  
+  /* Header */
+  --header-bg: rgba(26, 29, 35, 0.3);          /* Darker header bg */
+  --header-border: rgba(255, 255, 255, 0.1);   /* Light border */
+  --header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  
+  /* Footer */
+  --footer-gradient-from: rgba(26, 117, 187, 0.1);  /* Darker blue gradient */
+  --footer-gradient-to: transparent;
+  --footer-bg: rgba(255, 255, 255, 0.02);           /* Subtle bg */
+  --footer-border: rgba(255, 255, 255, 0.05);       /* Light border */
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased text-foreground bg-background;
+  }
+
+  /* Light mode specific background gradient */
+  body:not(.dark) {
+    background: linear-gradient(
+      180deg,
+      rgba(232, 245, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
+
+  /* Dark mode solid background */
+  body.dark {
+    background: hsl(var(--background));
+  }
+}
+
+
+/**
+ * Using the elevate system.
+ * Automatic contrast adjustment.
+ */
+@layer utilities {
+
+  /* Hide ugly search cancel button in Chrome until we can style it properly */
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
+  }
+
+  /* Placeholder styling for contentEditable div */
+  [contenteditable][data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+  }
+
+  .no-default-hover-elevate {}
+  .no-default-active-elevate {}
+
+  .toggle-elevate::before,
+  .toggle-elevate-2::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .toggle-elevate.toggle-elevated::before {
+    background-color: var(--elevate-2);
+  }
+
+  .border.toggle-elevate::before {
+    inset: -1px;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate),
+  .active-elevate:not(.no-default-active-elevate),
+  .hover-elevate-2:not(.no-default-hover-elevate),
+  .active-elevate-2:not(.no-default-active-elevate) {
+    position: relative;
+    z-index: 0;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate)::after,
+  .active-elevate:not(.no-default-active-elevate)::after,
+  .hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:not(.no-default-active-elevate)::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: 999;
+  }
+
+  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-1);
+  }
+
+  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-2);
+  }
+
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+    inset: -1px;
+  }
+
+  /* ============================================
+     NEW HOME PAGE UTILITY CLASSES
+     ============================================ */
+
+  /* Hero Section Gradient */
+  .bg-hero-gradient {
+    background: linear-gradient(180deg, var(--hero-gradient-from) 0%, var(--hero-gradient-to) 100%);
+  }
+
+  /* Text Color Classes */
+  .text-accent-red {
+    color: var(--text-accent-red);
+  }
+
+  .text-heading-dark {
+    color: var(--text-heading-dark);
+  }
+
+  .text-primary-blue {
+    color: var(--text-primary-blue);
+  }
+
+  .text-body-color {
+    color: var(--text-body);
+  }
+
+  .text-muted-gray {
+    color: var(--text-muted-gray);
+  }
+
+  /* Background Color Classes */
+  .bg-section-white {
+    background-color: var(--bg-white);
+  }
+
+  .bg-section-gray {
+    background-color: var(--bg-light-gray);
+  }
+
+  .bg-vision-section {
+    background-color: var(--bg-vision-light);
+  }
+
+  /* Button Background Classes */
+  .bg-btn-primary {
+    background-color: var(--btn-primary-bg);
+  }
+
+  .hover\:bg-btn-primary-hover:hover {
+    background-color: var(--btn-primary-hover);
+  }
+
+  .bg-btn-secondary {
+    background-color: var(--btn-secondary-bg);
+  }
+
+  .hover\:bg-btn-secondary-hover:hover {
+    background-color: var(--btn-secondary-hover);
+  }
+
+  /* ============================================
+     HEADER & FOOTER UTILITY CLASSES
+     ============================================ */
+
+  /* Header Classes */
+  .header-bg {
+    background-color: var(--header-bg);
+  }
+
+  .header-border {
+    border-color: var(--header-border);
+  }
+
+  .header-shadow {
+    box-shadow: var(--header-shadow);
+  }
+
+  /* Footer Classes */
+  .footer-gradient {
+    background: linear-gradient(to top, var(--footer-gradient-from), var(--footer-gradient-to));
+  }
+
+  .footer-bg {
+    background-color: var(--footer-bg);
+  }
+
+  .footer-border {
+    border-color: var(--footer-border);
+  }
+
+  /* ============================================
+     MODEL VIEWER STYLES
+     ============================================ */
+
+  /* Override model-viewer default poster background */
+  model-viewer {
+    --poster-color: #1a1a1a !important;
+  }
+
+  /* Dark background for model-viewer during load */
+  model-viewer::before {
+    background-color: #1a1a1a !important;
+  }
+
+  /* Hide default loading indicator */
+  model-viewer > .poster {
+    background-color: #1a1a1a !important;
+  }
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+
+  @keyframes progress {
+    0% {
+      width: 0%;
+      margin-left: 0%;
+    }
+    50% {
+      width: 60%;
+      margin-left: 20%;
+    }
+    100% {
+      width: 0%;
+      margin-left: 100%;
+    }
+  }
+}
+
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.horizontal-scroll {
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
